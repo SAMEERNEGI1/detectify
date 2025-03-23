@@ -1,0 +1,5 @@
+train: C:/Users/samee/OneDrive/Desktop/Project/ml-ai/intrusion_detection/dataset/images/train
+val: C:/Users/samee/OneDrive/Desktop/Project/ml-ai/intrusion_detection/dataset/images/val
+
+nc: 2  # Number of classes
+names: ['knife', 'fire']  # Class names

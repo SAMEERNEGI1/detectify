@@ -47,6 +47,36 @@ app.post("/detect-intrusion", upload.single("image"), async (req, res) => {
   }
 });
 
+//live intrusion
+// 🔹 Live Intrusion Detection Route
+
+
+
+app.post("/live-detect-intrusion", upload.single("image"), async (req, res) => {
+  try {
+    const file = req.file;
+    if (!file) return res.status(400).json({ message: "No image uploaded." });
+
+    const formData = new FormData();
+    formData.append("image", file.buffer, {
+      filename: file.originalname,
+      contentType: file.mimetype,
+    });
+
+    const response = await axios.post("http://127.0.0.1:5002/live-detect", formData, {
+      headers: formData.getHeaders(),
+    });
+
+    console.log("✅ Response from Flask:", response.data);
+
+    return res.json(response.data);
+  } catch (error) {
+    console.error("❌ Live Intrusion Detection Error:", error.message);
+    return res.status(500).json({ message: "Live intrusion detection failed.", error: error.message });
+  }
+});
+
+
 // 🔹 License Plate Detection Route
 app.post("/detect-license", upload.single("image"), async (req, res) => {
   try {
